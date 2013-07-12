@@ -1,0 +1,29 @@
+/* CSS Document */
+
+body{
+	margin:0px;
+	padding:0px;
+	background-color:#CCC;
+	min-height:500px;
+}
+
+#content{
+	height:500px;	
+}
+
+#header{
+	width:auto;
+	text-align:center;
+	background-color:#333;
+	height:40px;
+	color:#FFF;
+}
+#footer{
+	width:100%;
+	text-align:center;
+	background-color:#333;
+	height:40px;
+	color:#FFF;
+	bottom:0px;
+	position:fixed;
+}
