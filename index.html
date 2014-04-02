@@ -1,104 +1,113 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Capture Photo</title>
-
-    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
-    <script type="text/javascript" charset="utf-8">
-
-    var pictureSource;   // picture source
-    var destinationType; // sets the format of returned value
-
-    // Wait for device API libraries to load
-    //
-    document.addEventListener("deviceready",onDeviceReady,false);
-
-    // device APIs are available
-    //
-    function onDeviceReady() {
-        pictureSource=navigator.camera.PictureSourceType;
-        destinationType=navigator.camera.DestinationType;
-    }
-
-    // Called when a photo is successfully retrieved
-    //
-    function onPhotoDataSuccess(imageData) {
-      // Uncomment to view the base64-encoded image data
-      // console.log(imageData);
-
-      // Get image handle
-      //
-      var smallImage = document.getElementById('smallImage');
-
-      // Unhide image elements
-      //
-      smallImage.style.display = 'block';
-
-      // Show the captured photo
-      // The inline CSS rules are used to resize the image
-      //
-      smallImage.src = "data:image/jpeg;base64," + imageData;
-    }
-
-    // Called when a photo is successfully retrieved
-    //
-    function onPhotoURISuccess(imageURI) {
-      // Uncomment to view the image file URI
-      // console.log(imageURI);
-
-      // Get image handle
-      //
-      var largeImage = document.getElementById('largeImage');
-
-      // Unhide image elements
-      //
-      largeImage.style.display = 'block';
-
-      // Show the captured photo
-      // The inline CSS rules are used to resize the image
-      //
-      largeImage.src = imageURI;
-    }
-
-    // A button will call this function
-    //
-    function capturePhoto() {
-      // Take picture using device camera and retrieve image as base64-encoded string
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
-        destinationType: destinationType.DATA_URL });
-    }
-
-    // A button will call this function
-    //
-    function capturePhotoEdit() {
-      // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
-        destinationType: destinationType.DATA_URL });
-    }
-
-    // A button will call this function
-    //
-    function getPhoto(source) {
-      // Retrieve image file location from specified source
-      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
-        destinationType: destinationType.FILE_URI,
-        sourceType: source });
-    }
-
-    // Called if something bad happens.
-    //
-    function onFail(message) {
-      alert('Failed because: ' + message);
-    }
-
-    </script>
-  </head>
-  <body>
-    <button onclick="capturePhoto();">Capture Photo</button> <br>
-    <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
-    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
-    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
-    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-    <img style="display:none;" id="largeImage" src="" />
-  </body>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Titre de la page</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="phonegap.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="inc/js/keb-slideshow.js"></script>
+  <script src="inc/js/slide.js"></script>
+  <script> 
+		var myVideo="";
+		var fond_sonore="";
+		var son_hafida="";
+		var etape = 0; 
+		
+		$( document ).ready(function() {
+			myVideo = document.getElementById("video1");
+			fond_sonore = document.getElementById("fond_sonore");
+			son_hafida = document.getElementById("hafida");
+			$('#content').width(window.innerWidth);
+			$('#content').height(window.innerHeight);
+			playVideo();
+		});
+		
+		function playVideo()
+		{ 
+			if(window.innerHeight < 768) {
+				myVideo.height = window.innerHeight; 
+			}
+			if (myVideo.paused) 
+		  	myVideo.play();
+			fond_sonore.play();
+			son_hafida.play();
+			fond_sonore.loop=true;
+		  	enchaineVideo();
+			$('.txt').css('display','block');
+			$('.txt').animate({opacity:1},500);
+		} 
+		
+		function enchaineVideo()
+		{ 
+			myVideo.onpause = function () {
+				
+				if(etape==0) {
+					$('.txt').animate({opacity:0},500);
+					$('#video1').animate({opacity:0},500,function() {
+						myVideo.src = "inc/videos/tanger.mp4";
+						$('#video1').animate({opacity:1},500,function() {
+							$('.diapo').css('visibility','visible');
+							attendSwipe();
+						});
+						myVideo.play();
+						if(window.innerWidth < 1024) {
+							myVideo.width = window.innerWidth; 
+						}
+						else {
+							myVideo.width = 1024; 
+						}
+						etape++;
+						$('.diapo img').width(myVideo.height*1024/768);
+					});
+				
+				removeVideo();
+				}
+			};
+			
+		} 
+		
+		function removeVideo()
+		{
+			myVideo.onpause = function() {
+				$('#video1').animate({opacity:0},500,cacheVideo);
+			};
+		}
+		
+		function cacheVideo()
+		{
+			$('.conteneur_video').remove();
+		}
+		
+		function attendSwipe()
+		{
+			$(".diapo").on("swipe",function(){
+			  $(".diapo img").attr("src","inc/images/hafida_photo_t1.jpg");
+			});
+			$(".diapo img").bind("click",function(){
+			  $(".diapo img").attr("src","inc/images/hafida_photo_t1.jpg");
+			});
+		}
+   </script>
+</head>
+<body>
+<div id="content">
+  	<div class="txt">Hafida</div>
+    <div class="diapo">
+    	<img src="inc/images/tanger.jpg">
+    </div>
+    <div class="conteneur_video"><video width="580" height="768" id="video1">
+        <source src="inc/videos/hafida_intro.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video></div>
+    <audio id="fond_sonore"> 
+       <source src="inc/audio/ambiant.mp3" type="audio/mp3" /> 
+       Votre navigateur ne supporte pas le tag audio. 
+    </audio> 
+    <audio id="hafida"> 
+       <source src="inc/audio/hafida1.mp3" type="audio/mp3" /> 
+       Votre navigateur ne supporte pas le tag audio. 
+    </audio> 
+</div>
+</body>
 </html>

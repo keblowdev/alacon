@@ -15,7 +15,7 @@
         Pelikan
     </author>
  
-    <feature name="http://api.phonegap.com/1.0/camera"/>
+    <!--<feature name="http://api.phonegap.com/1.0/camera"/>
     <feature name="http://api.phonegap.com/1.0/contacts"/>
     <feature name="http://api.phonegap.com/1.0/file"/>
     <feature name="http://api.phonegap.com/1.0/geolocation"/>
@@ -23,6 +23,6 @@
     <feature name="http://api.phonegap.com/1.0/network"/>
     <feature name="http://api.phonegap.com/1.0/notification"/>
 	
-	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
+	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />-->
  
 </widget>

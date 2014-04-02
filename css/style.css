@@ -1,0 +1,44 @@
+/* CSS Document */
+
+body{
+	margin:0px;
+	padding:0px;
+	background-color:#EBEBEB;
+}
+
+#content {
+	margin:0 auto;
+	width:1024px;
+	text-align:left;
+	background-color:#EBEBEB;
+	position:relative;
+}
+
+#content .txt {
+	position:absolute;
+	right:100px;
+	bottom:50px;
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:20px;
+	color:#000000;
+	display:none;
+	z-index:10;
+	opacity:0;
+}
+
+#content .diapo {
+	position:absolute;
+	width:100%;
+	z-index:0;
+	text-align:center;
+	visibility:hidden;
+}
+
+#content .diapo img {
+	margin:0 auto;
+}
+
+#content .conteneur_video {
+	position:absolute;
+	z-index:5;
+}
